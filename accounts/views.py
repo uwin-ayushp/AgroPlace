@@ -55,18 +55,8 @@ def login(request):
     if request.method == "POST":
         email = request.POST['email']
         password = request.POST['password']
-
         user = auth.authenticate(email=email, password=password)
-
-        if user is  None:
-            try:
-
-               context = "welcome"
-
-
-
-            except:
-                pass    
+        if user is not None:
             auth.login(request, user)
             messages.success(request, 'you are now loged in')
             url = request.META.get('HTTP_REFERER')
@@ -90,7 +80,6 @@ def login(request):
 @login_required(login_url= login)
 def logout(request):
     auth.logout(request)
-    
     return redirect('login')
 
 
@@ -114,11 +103,11 @@ def activate(request, uidb64,token):
 def dashbord(request):
     # orders = Order.objects.order_by('created_at').filter(user_id=request.user.id, is_ordered=True)
     # orders_count = orders.count()
-    # context ={
-    #     'orders':orders,
-    #     'orders_count': orders_count
-    # }
-    return render(request, 'accounts/dashbord.html', "")
+    context ={
+        'orders':"",
+        'orders_count': ""
+    }
+    return render(request, 'accounts/dashbord.html', context)
 
 
 

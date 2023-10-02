@@ -10,6 +10,8 @@
         <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
             <article class="card-body">
                 {% include 'accounts/alert.html' %}
+                {{form.email.errors}}
+                {{form.non_field_errors}}
                 <header class="mb-4">
                     <h4 class="card-title">Sign up</h4>
                 </header>
@@ -52,8 +54,7 @@
                     <div class="mb-3">
                         <button type="submit" class="btn btn-primary btn-block"> Register </button>
                     </div> <!-- mb-3// -->
-                    {{form.email.errors}}
-                    {{form.non_field_errors}}
+
                 </form>
             </article><!-- card-body.// -->
         </div> <!-- card .// -->
