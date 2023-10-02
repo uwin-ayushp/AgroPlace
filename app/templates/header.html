@@ -35,7 +35,7 @@
 
 
 {#                {% if user.is_authenticated %}#}
-
+                {% if true %}
                 <div class="navbar-tool me-3">
                     <a class="navbar-tool-icon-box bg-secondary"
                         href=""><span class="navbar-tool-label">{{cart_count}}</span><i
@@ -49,15 +49,15 @@
                 </a>
 
                 <a class="btn btn-sm btn-danger rounded-1 ms-lg-4 ms-2" href="">Logout</a>
-{##}
-{#                {%else%}#}
-{##}
-{#                <a class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="{%url 'login'%}">#}
-{#                    <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-user"></i></div>#}
-{#                    <div class="navbar-tool-text ms-n3"><small>Hello, Sign in</small>My Account</div>#}
-{#                </a>#}
-{##}
-{#                {% endif %}#}
+
+                {%else%}
+
+                <a class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="{%url 'login'%}">
+                    <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-user"></i></div>
+                    <div class="navbar-tool-text ms-n3"><small>Hello, Sign in</small>My Account</div>
+                </a>
+
+                {% endif %}
 
 
             </div>
