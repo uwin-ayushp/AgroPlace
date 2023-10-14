@@ -28,7 +28,8 @@ def register(request):
             username = email.split('@')[0]
             phone_number = form.cleaned_data['phone_number']
             password = form.cleaned_data['password']
-            user = Account.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password)
+            userRole = request.POST.get('userType')
+            user = Account.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password,user_role=userRole)
             user.phone_number = phone_number
             user.is_active = True
             user.save()
@@ -81,6 +82,8 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('login')
+
+
 
 
 

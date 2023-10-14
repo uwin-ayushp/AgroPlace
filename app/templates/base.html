@@ -37,8 +37,9 @@
 <body class="bg-secondary">
 
 	{% include "header.html" %}
+{#    {% if request.user.user_role != 'farmer' %}#}
 	{% include "sidebar.html" %}
-
+{#    {% endif %}#}
 	{% block content %}
 	{% endblock content %}
 
