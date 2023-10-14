@@ -10,4 +10,27 @@
                                 role="tab">Categories</a>
                 </li>
         </ul>
+
+       <div class="offcanvas-body px-0 pt-3 pb-0" data-simplebar>
+                <div class="sidebar-nav tab-pane fade show active" id="categories" role="tabpanel">
+
+{#                        {% for i in links %}#}
+                        <div class="border-bottom">
+                            {% if request.user.user_role == 'farmer' %}
+
+                                <a href="{% url 'products' %}"
+                                        class="nav-link-style d-block fs-md fw-normal py-3 px-grid-gutter">
+                                        <span class="d-flex align-items-center">
+                                                <i class="product-card fs-lg opacity-60 mt-n1 me-2">
+                                                </i>Products
+                                        </span>
+                                </a>
+                            {% endif %}
+                        </div>
+{#                        {% endfor %}#}
+
+                </div>
+
+        </div>
+
 </aside>
