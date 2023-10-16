@@ -8,6 +8,7 @@ import requests
 from django.http import HttpResponse
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
+from .forms import AddProductForm
 # Create your views here.
 """verification email"""
 from django.contrib.sites.shortcuts import get_current_site
@@ -20,3 +21,16 @@ from django.core.mail import EmailMessage
 def products(request):
     # Your view logic here
     return render(request, 'products.html')
+
+@login_required(login_url='login')
+def add_products(request):
+    add_product_form = AddProductForm()
+    # if request.method == "POST":
+    #     form = AddProductForm(request.POST)
+    #     if form.is_valid():
+    #         product_name = form.cleaned_data['product_name']
+    #
+    #     context = {
+    #         'form': form
+    #     }
+    return render(request, 'add_product.html', {'add_product_form' : add_product_form})

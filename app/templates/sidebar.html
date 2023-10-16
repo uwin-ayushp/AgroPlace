@@ -18,7 +18,7 @@
                         <div class="border-bottom">
                             {% if request.user.user_role == 'farmer' %}
 
-                                <a href="{% url 'products' %}"
+                                <a href="{% url 'farmer:products' %}"
                                         class="nav-link-style d-block fs-md fw-normal py-3 px-grid-gutter">
                                         <span class="d-flex align-items-center">
                                                 <i class="product-card fs-lg opacity-60 mt-n1 me-2">
