@@ -17,10 +17,13 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
-
+from django.views.generic import ListView
+from store.models import Product
+from app.models import Account
 def products(request):
-    # Your view logic here
-    return render(request, 'products.html')
+    farmerid = Account.objects.get(email=request.user)
+    products = Product.objects.filter(farmerID=farmerid.id)
+    return render(request, 'products.html', {'products': products})
 
 @login_required(login_url='login')
 def add_products(request):
@@ -34,3 +37,15 @@ def add_products(request):
     #         'form': form
     #     }
     return render(request, 'add_product.html', {'add_product_form' : add_product_form})
+
+
+   
+
+
+
+
+# class ProductListView(ListView):
+#     model = Product
+#     template_name = 'products/products.html'
+#     context_object_name = 'products'
+
