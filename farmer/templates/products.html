@@ -9,40 +9,27 @@
 
     <div class="container">
         <div class="row">
-            {% include 'accounts/dashbord_sidebar.html' %}
-            <main class="col-md-9">
-                <article class="card">
-                    <header class="card-header">
-                        <strong class="d-inline-block mr-3">Logged in as:</strong>
-                        <span>{{user.full_name}}</span>
-                    </header>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="card" style="text-align: center;">
-                                    <div class="cart-body">
-                                        <h5 class="cart-title">Total Orders</h5>
-                                        <h4>{{orders_count}}</h4>
-                                        <a href="{%url 'my_orders'%}">View Orders</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card" style="text-align: center;">
-                                    <div class="cart-body">
-
-                                        <img src="https://www.w3schools.com/howto/img_avatar.png" alt="User Picure"
-                                            width="50" height="50" style="border-radius: 50%;">
-                                        <p class="mb-0">{{user.email}}</p>
-                                        <p>{{user.phone_number}}</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-        <!-- table-responsive .end// -->
-        </article> <!-- order-group.// -->
+{#            {% include 'accounts/dashbord_sidebar.html' %}#}
+            <main class="col-md-12">
+               <h1>Product List</h1>
+    <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>${{ product.price }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
         </main>
     </div> <!-- row.// -->
     </div>
@@ -53,5 +40,11 @@
 
 </main>
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+    new DataTable('#example');
 
+</script>
 {% endblock content %}
+
