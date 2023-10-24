@@ -18,14 +18,16 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
+                <th>Remove</th>
             </tr>
         </thead>
         <tbody>
             {% for product in products %}
                 <tr>
-                    <td>{{ product.name }}</td>
+                    <td><a href="{%url 'farmer:edit_product' product.id %}">{{ product.product_name }}</a></td>
                     <td>{{ product.description }}</td>
                     <td>${{ product.price }}</td>
+                    <td><a href="{%url 'farmer:delete_product' product.id %}">Delete</a></td>
                 </tr>
             {% endfor %}
         </tbody>
