@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'accounts',
     'farmer',
     'store',
-    'category'
+    'category',
+    'cart',
+    'orders'
 ]
 
 MIDDLEWARE = [
@@ -127,3 +129,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 
 }
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51NPXyRBOKJVEoMX2VU3PjTusNVhZf8Y1SRrCRiSkLoeHkUsvtm8fFzpwS0O5GGLp2ZOE71lTCY41BJZLTEODhyKl00urYbTjaW'
+STRIPE_SECRET_KEY = 'sk_test_51NPXyRBOKJVEoMX2qRmkxCIFJefVmPumoUR4zoPIADiBIkToENf9jhCeROshnDquPNgEvWWR8rU3udNNCD0q5FZF00Qo7MLVLc'
+STRIPE_CONNECT_CLIENT_ID = 'ca_OhfqPF7U67ijAM5FzXIAvf7hbCDd4CGS'

@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect,get_object_or_404
+
+from orders.models import Order, OrderProduct
 from .forms import RegistrationForm, UserForm, UserProfileForm
 from app.models import Account, UserProfile
 # from orders.models import Order, OrderProduct
@@ -104,13 +106,13 @@ def activate(request, uidb64,token):
           
 @login_required(login_url='login')
 def dashbord(request):
-    # orders = Order.objects.order_by('created_at').filter(user_id=request.user.id, is_ordered=True)
-    # orders_count = orders.count()
-    context ={
-        'orders':"",
-        'orders_count': ""
+     orders = Order.objects.order_by('created_at').filter(user_id=request.user.id, is_ordered=True)
+     orders_count = orders.count()
+     context ={
+        'orders':orders,
+        'orders_count': orders_count
     }
-    return render(request, 'accounts/dashbord.html', context)
+     return render(request, 'accounts/dashbord.html', context)
 
 
 
@@ -179,11 +181,12 @@ def resetPassword(request):
         
                  
 def my_orders(request):
-    # orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('created_at')
-    # context ={
-    #     'orders':orders
-    # }
-    return render(request, 'accounts/my_orders.html', "context")
+    orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('created_at')
+    context ={
+        'orders':orders
+    }
+    print(orders)
+    return render(request, 'accounts/my_orders.html', context)
 
 
 
@@ -214,15 +217,15 @@ def edit_profile(request):
 
 @login_required(login_url='login')
 def order_detail(request, order_id):
-    # order_detail = OrderProduct.objects.filter(order__order_number=order_id)
-    # order = Order.objects.get(order_number=order_id)
-    # subtotal = 0
-    # for i in order_detail:
-    #     subtotal += i.product_price * i.quantity
-    #
-    # context = {
-    #     'order_detail':order_detail,
-    #     'order' :order,
-    #     'subtotal':subtotal,
-    # }
-    return render(request, 'accounts/order_detail.html',"context")
+    order_detail = OrderProduct.objects.filter(order__order_number=order_id)
+    order = Order.objects.get(order_number=order_id)
+    subtotal = 0
+    for i in order_detail:
+        subtotal += i.product_price * i.quantity
+
+    context = {
+        'order_detail':order_detail,
+        'order' :order,
+        'subtotal':subtotal,
+    }
+    return render(request, 'accounts/order_detail.html',context)

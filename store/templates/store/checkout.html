@@ -12,7 +12,7 @@
                     <div class="card">
                         <div class="card-body"> 
                             <h4 class="card-title mb-4">Billing Address</h4>
-                            <form action="{%url 'place-order'%}" method="POST">
+                       <form id="myform">
                                 {% csrf_token %}
                                 <div class="row">
                                     <div class="col mb-3">
@@ -109,8 +109,8 @@
                               </td>
             
                               <td class="text-center">
-                                <div class="fs-lg text-accent pt-2">Rs. {{ cart_item.sub_total }}</div>
-                                <small>Rs. {{cart_item.product.price}} each</small>
+                                <div class="fs-lg text-accent pt-2">$ {{ cart_item.sub_total }}</div>
+                                <small>$ {{cart_item.product.price}} each</small>
                               </td>
                               
             
@@ -122,7 +122,7 @@
                         <div class="card-footer">
 
 
-                            <button type="submit" class="btn btn-primary btn-block">Place Order</button>
+                            <button id="purchase-btn" class="btn btn-primary btn-block">Place Order</button>
                             </form>
                             <a href="{%url 'store'%}" class="btn btn-light btn-block">Continue Shopping</a>
 
@@ -138,4 +138,113 @@
         </div> <!-- container .//  -->
     </section>
 </main>
+    {% block script %}
+  <script>var generated_csrf_token = '{{ csrf_token }}';</script>
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+       <script>
+  $(() => {
+    var handler = StripeCheckout.configure({
+      key: 'pk_test_51NPXyRBOKJVEoMX2VU3PjTusNVhZf8Y1SRrCRiSkLoeHkUsvtm8fFzpwS0O5GGLp2ZOE71lTCY41BJZLTEODhyKl00urYbTjaW',
+      locale: 'auto',
+      token: function(token) {
+        // Get the CSRF token from your template and replace 'generated_csrf_token' with it
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
+        // Get the form data
+        const formData = new FormData(document.getElementById('myform'));
+
+        // Add the Stripe token to the form data
+        formData.append('stripe_token', token.id);
+
+        $.ajax({
+          url: '/orders/place_order/',
+          method: 'POST',
+          data: formData,
+          processData: false, // Prevent jQuery from processing the data
+          contentType: false, // Let the browser set the content type
+          headers: {'X-CSRFToken': csrfToken},
+        })
+        .done((res) => {
+          const message = 'Thanks for purchasing!';
+          console.log(message)
+             window.history.replaceState({}, document.title, window.location.href);
+           window.location.href = '/orders/order_complete/';
+
+                  {#$('div > .notification.is-success').html(message);#}
+          {#$('.notification-success-wrapper').css('display', 'block');#}
+        })
+        .fail((err) => {
+          const message = 'There was a problem processing your payment. Please use a different payment method or contact your payment method provider.<br><br>Please contact us if you continue to have problems.';
+            alert(message)
+            {#$('div > .notification.is-danger').html(message);#}
+          {#$('.notification-danger-wrapper').css('display', 'block');#}
+        });
+      }
+    });
+
+    document.getElementById('purchase-btn').addEventListener('click', function(e) {
+      handler.open({
+        name: "Purchase a course",
+        description: "{{ user.email }}",
+        amount: "{{ cart_item.sub_total }}" * 100,
+      });
+      e.preventDefault();
+    });
+
+    window.addEventListener('popstate', function() {
+      handler.close();
+    });
+  });
+</script>
+
+
+{#  <script>#}
+{#    $(() => {#}
+{##}
+{#      var handler = StripeCheckout.configure({#}
+{#        key: 'pk_test_51NPXyRBOKJVEoMX2VU3PjTusNVhZf8Y1SRrCRiSkLoeHkUsvtm8fFzpwS0O5GGLp2ZOE71lTCY41BJZLTEODhyKl00urYbTjaW',#}
+{#        locale: 'auto',#}
+{#        token: function(token) {#}
+{##}
+{#          $.ajax({#}
+{#            url: '/orders/place_order/',#}
+{#            method: 'POST',#}
+{#            data: JSON.stringify({#}
+{#              token: token.id,#}
+{#              price: "10" * 100,#}
+{#              description: "test",#}
+{#              pid: "1",#}
+{#            }),#}
+{#            headers: {'X-CSRFToken': generated_csrf_token},#}
+{#          })#}
+{#          .done((res) => {#}
+{#            const message = 'Thanks for purchasing!'#}
+{#            $('div > .notification.is-success').html(message);#}
+{#            $('.notification-success-wrapper').css('display', 'block');#}
+{#          })#}
+{#          .fail((err) => {#}
+{#            const message = 'There was a problem processing your payment. Please use a different payment method or contact your payment method provider.<br><br>Please contact us if you continue to have problems.'#}
+{#            $('div > .notification.is-danger').html(message);#}
+{#            $('.notification-danger-wrapper').css('display', 'block');#}
+{#          });#}
+{#        }#}
+{#      });#}
+{#      document.getElementById('purchase-btn').addEventListener('click', function(e) {#}
+{#        // Open Checkout with further options:#}
+{#        handler.open({#}
+{#          name: "Purchase a course",#}
+{#          description: "{{ user.email }}",#}
+{#          amount: "{{ cart_item.sub_total  }}" * 100#}
+{#        });#}
+{#        e.preventDefault();#}
+{#      });#}
+{#      // Close Checkout on page navigation:#}
+{#      window.addEventListener('popstate', function() {#}
+{#        handler.close();#}
+{#      });#}
+{#    });#}
+{#  </script>#}
+{% endblock %}
 {% endblock content %}
+
+

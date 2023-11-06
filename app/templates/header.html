@@ -37,8 +37,8 @@
                 {% if user.is_authenticated %}
 {#                {% if true %}#}
                 <div class="navbar-tool me-3">
-                    <a class="navbar-tool-icon-box bg-secondary"
-                        href=""><span class="navbar-tool-label">{{cart_count}}</span><i
+                     <a class="navbar-tool-icon-box bg-secondary"
+                        href="{%url 'cart'%}"><span class="navbar-tool-label">{{cart_count}}</span><i
                             class="navbar-tool-icon ci-cart"></i>
                     </a>
                 </div>
