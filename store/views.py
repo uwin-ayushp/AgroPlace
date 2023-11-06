@@ -1,8 +1,12 @@
+import stripe
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views import View
+
 from store.models import Product, ReviewRating
 from category.models import Category
 from .forms import ReviewForms
 from django.contrib import messages
+
 
  
 def store(request, category_slug=None):
@@ -57,4 +61,6 @@ def submit_reviews(request, product_id):
                 data.save()
                 messages.success(request, 'Thank you, your Review has been submitted')
                 return redirect(url)
+
+
 

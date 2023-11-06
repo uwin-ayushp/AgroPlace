@@ -33,8 +33,10 @@
                   <td>
                     <div class="d-block d-sm-flex text-center text-sm-start">
                       <img src="{{cart_item.product.image.url}}" width="80" alt="Product" class="border border-accent rounded-3"></a>
-                      <h3 class="fs-base mb-2 ps-3" style="line-height: 1.6;">{{cart_item.product}}</a></h3>
+                      <h3 class="fs-base mb-2 ps-3" style="line-height: 1.6;"><a>{{cart_item.product}}</a></h3>
+
                     </div>
+                    <h6>In Stock Qunatity :<label id="totalqty"> {{ cart_item.product.quantity }}</label> </h6>
                   </td>
                   <td class="text-center">
                     
@@ -43,20 +45,18 @@
                         <a href="{%url 'remove_cart' cart_item.product.id%}" class="btn btn-secondary rounded-circle py-0 px-2" type="button"> - </a>
                       </div>
                       
-                      <input type="text" class="form-control mx-3" value="{{cart_item.quantity}}" />
+                      <input type="text" id="txt_qty" class="form-control mx-3" value="{{cart_item.quantity}}" disabled />
 
                       <div class="my-auto">
-                        <a href="{%url 'add-cart' cart_item.product.id%}" class="btn btn-secondary btn-icon rounded-circle py-0 px-2" type="button">+</a>
+                        <a href="{%url 'add-cart' cart_item.product.id%}" id="addButton" class="btn btn-secondary btn-icon rounded-circle py-0 px-2" type="button">+</a>
                       </div>
                     </div>
 
-                    <button class="btn btn-link px-0 text-danger" type="button" href="{%url 'remove_cart_item' cart_item.product.id%}"><i class="ci-close-circle me-2"></i><span class="fs-sm">Remove</span></button>
-                   
                   </td>
 
                   <td class="text-center">
-                    <div class="fs-lg text-accent pt-2">Rs. {{ cart_item.sub_total }}</div>
-                    <small>Rs. {{cart_item.product.price}} each</small>
+                    <div class="fs-lg text-accent pt-2">$ {{ cart_item.sub_total }}</div>
+                    <small>$ {{cart_item.product.price}} each</small>
                   </td>
                   
 
@@ -73,12 +73,12 @@
             <div class="card-body">
               <dl class="dlist-align">
                 <dt>Total price:</dt>
-                <dd class="text-right">Rs. {{total}}</dd>
+                <dd class="text-right">$ {{total}}</dd>
               </dl>
               <dl class="dlist-align">
                 <dt>Grand Total:</dt>
                 <dd class="text-right text-dark b">
-                  <strong>Rs. {{total}}</strong>
+                  <strong>$ {{total}}</strong>
                 </dd>
               </dl>
               <hr />
@@ -103,5 +103,27 @@
 
 </main>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const totalqty = document.getElementById("totalqty").innerText
+  const stockQuantity = parseInt(totalqty);
+  const txtQtyInput = document.getElementById("txt_qty");
+  const addButton = document.getElementById("addButton");
+
+  // Check if the elements exist before attaching the event listener
+  if (txtQtyInput && addButton) {
+    addButton.addEventListener("click", function () {
+      const enteredQuantity = parseInt(txtQtyInput.value);
+
+
+    });
+    if (parseInt(txtQtyInput.value) >= stockQuantity) {
+      // Optionally add a CSS class to visually indicate that the button is "disabled"
+      addButton.classList.add("disabled");
+    }
+  }
+});
+</script>
 
 {% endblock content %}
+
