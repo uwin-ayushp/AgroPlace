@@ -2,7 +2,7 @@
     <!--   SIDEBAR   -->
     <ul class="list-group">
         <a class="list-group-item  active" href="{%url 'dashbord'%}">Dashbord</a>
-        <a class="list-group-item" href="{%url 'my_orders'%}">My orders</a>
+        <a class="list-group-item" href="{%url 'farmer:farmerOrder' user.id%}">My orders</a>
         {% if request.user.user_role == 'farmer' %}
             <a class="list-group-item" href="{%url 'farmer:add_products'%}">Add Products</a>
         {% endif %}

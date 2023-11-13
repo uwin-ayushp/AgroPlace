@@ -28,6 +28,7 @@ class Order(models.Model):
     is_ordered = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+    farmer_id = models.IntegerField()
 
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
