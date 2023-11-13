@@ -8,6 +8,8 @@ import requests
 from django.http import HttpResponse
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
+
+from orders.models import Order
 from .forms import AddProductForm
 # Create your views here.
 """verification email"""
@@ -89,3 +91,13 @@ def delete_product(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     product.delete()
     return redirect('farmer:products')
+
+@login_required(login_url='login')
+def farmerOrder(request, user_id):
+    orders = Order.objects.filter(farmer_id=user_id).order_by('created_at')
+    status = [c[1] for c in Order.status.field.choices]
+    context = {
+        'orders': orders,
+        'order_status':status
+    }
+    return render(request, 'order.html',context)

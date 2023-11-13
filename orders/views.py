@@ -96,6 +96,7 @@ def place_order(request, total=0, quantity=0,):
         data.city = request.POST.get("city","")
         data.order_note = request.POST.get("order_note","")
         data.ip = request.META.get("REMOTE_ADDR")
+        data.farmer_id = product.farmerID
         data.save()
         data.order_total =total      
         data.save()

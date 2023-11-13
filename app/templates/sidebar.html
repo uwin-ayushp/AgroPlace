@@ -25,7 +25,9 @@
                                                 </i>Products
                                         </span>
                                 </a>
-                            {% endif %}
+                            {% elif request.user.user_role == 'buyer' %}
+
+
                          <a href="{% url 'store' %}"
                                         class="nav-link-style d-block fs-md fw-normal py-3 px-grid-gutter">
                                         <span class="d-flex align-items-center">
@@ -33,6 +35,7 @@
                                                 </i>Products
                                         </span>
                                 </a>
+                            {% endif %}
                         </div>
 {#                        {% endfor %}#}
 
