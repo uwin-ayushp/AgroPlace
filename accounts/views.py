@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect,get_object_or_404
 from orders.models import Order, OrderProduct
 from .forms import RegistrationForm, UserForm, UserProfileForm
 from app.models import Account, UserProfile
-# from orders.models import Order, OrderProduct
+from orders.models import Order, OrderProduct
 # from cart.models import Cart, CartItem
 # from cart.views import _cart_id
 import requests
@@ -181,7 +181,9 @@ def resetPassword(request):
         
                  
 def my_orders(request):
+
     orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('created_at')
+
     context ={
         'orders':orders
     }

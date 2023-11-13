@@ -8,21 +8,29 @@
                 <h3>AgroPlace</h3>
             </a>
 
-            <form class="input-group d-none d-lg-flex flex-nowrap mx-4" action="" class="search" style="width:60%;">
+            <a class="navbar-brand" href="{%url 'store'%}">
+                <h6>Products</h6>
+            </a>
+
+            <a class="navbar-brand" href="{%url 'home'%}">
+                <h6>About Us</h6>
+            </a>
+
+            <form class="input-group d-none d-lg-flex flex-nowrap mx-4" action="" class="search" style="width:40%;">
                 <i class="ci-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
                 <input name="q" class="form-control rounded-start w-100" type="text" placeholder="Search for products" value={{request.GET.q}}>
-                <select name="category" class="form-select flex-shrink-0" style="width: 14rem;">
-                    
-                    {% if request.GET.category %}
-                    <option>{{request.GET.category}}</option>
-                    {% else %}
-                    <option>All Category</option>
-                    {% endif %}
-
-                    {% for i in links %}
-                    <option value="{{i.category_name}}">{{i.category_name}}</option>
-                    {% endfor %}
-                </select>
+{#                <select name="category" class="form-select flex-shrink-0" style="width: 14rem;">#}
+{#                    #}
+{#                    {% if request.GET.category %}#}
+{#                    <option>{{request.GET.category}}</option>#}
+{#                    {% else %}#}
+{#                    <option>All Category</option>#}
+{#                    {% endif %}#}
+{##}
+{#                    {% for i in links %}#}
+{#                    <option value="{{i.category_name}}">{{i.category_name}}</option>#}
+{#                    {% endfor %}#}
+{#                </select>#}
             </form>
 
             <div class="navbar-toolbar d-flex flex-shrink-0 align-items-center ms-xl-2">
