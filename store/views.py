@@ -1,3 +1,5 @@
+import random
+
 import stripe
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
@@ -63,4 +65,17 @@ def submit_reviews(request, product_id):
                 return redirect(url)
 
 
+def get_random_products():
+    all_products = list(Product.objects.all())
+    random.shuffle(all_products)
+    return all_products
 
+def get_recommendations(request):
+    product_names = ["Potatoes", "Wheat", "Broccoli", "Carrots", "Onions"]
+    recommendations = list(Product.objects.filter(product_name__in=product_names))
+    random.shuffle(recommendations)
+
+    context = {
+        'recommendations': recommendations
+    }
+    return render(request, 'store/recommended_products.html', context)

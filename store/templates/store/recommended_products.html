@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+
+<main class="offcanvas-enabled" style="padding-top: 5rem;">
+    <section class="ps-lg-4 pe-lg-3 pt-4">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-12">
+                    <h1>Recommended Products</h1>
+                </main>
+                {% for product in recommendations %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.product_name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.product_name }}</h5>
+{#                            <p class="card-text">{{ product.description }}</p>#}
+                            <p class="card-text">Price: ${{ product.price }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock content %}
+
+
+
