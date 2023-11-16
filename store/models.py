@@ -83,3 +83,10 @@ class ProductGalary(models.Model):
     def __str__(self):
         return self.product.product_name
     
+
+class Recommendation(models.Model):
+    recommendation_order = models.IntegerField()
+    score = models.FloatField()
+
+    def __str__(self):
+        return f"Recommendation {self.id}"

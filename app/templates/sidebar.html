@@ -1,46 +1,60 @@
 <aside class="offcanvas offcanvas-expand w-100 border-end zindex-lg-5 pt-lg-5" id="sideNav"
-        style="max-width: 21.875rem;">
-        <div class="pt-2 d-none d-lg-block">
+       style="max-width: 21.875rem;">
+    <div class="pt-2 d-none d-lg-block">
 
-        </div>
- 
-        <ul class="nav nav-tabs mt-4 mt-lg-5 mb-0" role="tablist" style="min-height: 3rem;">
-                <li class="nav-item">
-                        <a class="nav-link fw-medium active" href="#categories" data-bs-toggle="tab"
-                                role="tab">Categories</a>
-                </li>
-        </ul>
+    </div>
 
-       <div class="offcanvas-body px-0 pt-3 pb-0" data-simplebar>
-                <div class="sidebar-nav tab-pane fade show active" id="categories" role="tabpanel">
+    <ul class="nav nav-tabs mt-4 mt-lg-5 mb-0" role="tablist" style="min-height: 3rem;">
+        <li class="nav-item">
+            <a class="nav-link fw-medium active" href="#categories" data-bs-toggle="tab"
+               role="tab">Categories</a>
+        </li>
+    </ul>
 
-{#                        {% for i in links %}#}
-                        <div class="border-bottom">
-                            {% if request.user.user_role == 'farmer' %}
+    <div class="offcanvas-body px-0 pt-3 pb-0" data-simplebar>
+        <div class="sidebar-nav tab-pane fade show active" id="categories" role="tabpanel">
 
-                                <a href="{% url 'farmer:products' %}"
-                                        class="nav-link-style d-block fs-md fw-normal py-3 px-grid-gutter">
+            {#                        {% for i in links %}#}
+            <div class="border-bottom">
+                {% if request.user.user_role == 'farmer' %}
+
+                    <a href="{% url 'farmer:products' %}"
+                       class="nav-link-style d-block fs-md fw-normal py-3 px-grid-gutter">
                                         <span class="d-flex align-items-center">
                                                 <i class="product-card fs-lg opacity-60 mt-n1 me-2">
                                                 </i>Products
                                         </span>
-                                </a>
-                            {% elif request.user.user_role == 'buyer' %}
+                    </a>
+                    <a href="{% url 'farmer:insights' %}"
+                       class="nav-link-style d-block fs-md fw-normal py-3 px-grid-gutter">
+                                        <span class="d-flex align-items-center">
+                                                <i class="product-card fs-lg opacity-60 mt-n1 me-2">
+                                                </i>Market Insights
+                                        </span>
+                    </a>
+                {% elif request.user.user_role == 'buyer' %}
 
 
-                         <a href="{% url 'store' %}"
-                                        class="nav-link-style d-block fs-md fw-normal py-3 px-grid-gutter">
+                    <a href="{% url 'store:home' %}"
+                       class="nav-link-style d-block fs-md fw-normal py-3 px-grid-gutter">
                                         <span class="d-flex align-items-center">
                                                 <i class="product-card fs-lg opacity-60 mt-n1 me-2">
                                                 </i>Products
                                         </span>
-                                </a>
-                            {% endif %}
-                        </div>
-{#                        {% endfor %}#}
-
-                </div>
+                    </a>
+                    <a href="{% url 'store:recommendations' %}"
+                       class="nav-link-style d-block fs-md fw-normal py-3 px-grid-gutter">
+                                        <span class="d-flex align-items-center">
+                                                <i class="product-card fs-lg opacity-60 mt-n1 me-2">
+                                                </i>Recommended Products
+                                        </span>
+                    </a>
+                {% endif %}
+            </div>
+            {#                        {% endfor %}#}
 
         </div>
+
+    </div>
 
 </aside>

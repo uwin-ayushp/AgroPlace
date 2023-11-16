@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <main class="offcanvas-enabled" style="padding-top: 5rem;">
+        <section class="ps-lg-4 pe-lg-3 pt-4">
+            <div class="container">
+                <div class="row">
+                    <main class="col-md-12">
+                        <h1>Market Insights</h1>
+                    </main>
+                    <div class="col-md-6 text-center">
+                        <div class="card">
+                            <h5 class="card-title" style="margin: 15px 20px;">Sales Milestone: Products Sold</h5>
+                            <div class="card-body">
+                                {#                            <img src="{% static 'download.png' %}" class="card-img-top" alt="Trending Products Image">#}
+                                <canvas id="trendingChart" style="max-width: 100%;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            {#                            <div class="card-body">#}
+                            {#                                <h5 class="card-title">Trending Products List - Last Week</h5>#}
+                            {#                                <ul class="list-group list-group-flush">#}
+                            {#                                    {% for product in trending_products %}#}
+                            {#                                        <li class="list-group-item">{{ product }}</li>#}
+                            {#                                    {% endfor %}#}
+                            {#                                </ul>#}
+                            {#                            </div>#}
+                            <div class="card-body text-center">
+                                <h5 class="card-title">In-Demand: The Trending Products Hitlist</h5>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Total Sold (lbs)</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for product, total_selling in trending_products_list %}
+                                        <tr>
+                                            <td>{{ product }}</td>
+                                            <td>{{ total_selling }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <div class="col-md-6 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Customer Approved: Discover Products with High Ratings</h5>
+                                <canvas id="ratingsChart" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center mt-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Profit Peaks: Trending Products Revenue</h5>
+                                <canvas id="revenueChart" style="width: 50%;"></canvas>
+                                {#                                <canvas id="revenueChart" width="400" height="200"></canvas>#}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        new DataTable('#example');
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="{% static 'js/product_trending.js' %}"></script>
+    <script src="{% static 'js/product_revenue.js' %}"></script>
+    <script src="{% static 'js/product_ratings.js' %}"></script>
+{% endblock content %}
+
