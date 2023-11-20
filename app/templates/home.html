@@ -4,36 +4,59 @@
 {% block content %}
 
 
-<main class="offcanvas-enabled" style="padding-top: 5rem;">
+<main class="offcanvas-enabled" style="padding-top: 4rem;">
+
     <section class="ps-lg-4 pe-lg-3 pt-4">
+        <div class="px-3 pt-1">
 
-        <div class="px-3 pt-2">
-
-            <div>
-                <div class="rounded-3 px-md-5 text-center text-xl-start" style="background-color: #59c879;">
-                    <div class="d-xl-flex justify-content-between align-items-center px-4 px-sm-5 mx-auto"
-                        style="max-width: 1226px;">
-                        <div class="py-5 me-xl-4 mx-auto mx-xl-0" style="max-width: 490px;">
-
+            <div id="slides-shop" class="cover-slides">
+                <ul class="slides-container">
+                    <li class="text-center">
+                        <img src={% static 'images/banner-01.jpg'%} alt="">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h1 class="m-b-20"><strong>Welcome To <br> Agroplace</strong></h1>
+                                    <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see any changes in performance over time.</p>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <img src="{% static 'img/grocery/slider/farming.jpg' %}" alt="Image" style="width:80%;">
+                    </li>
+                    <li class="text-center">
+                        <img src={% static 'images/banner-02.jpg'%} alt="">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h1 class="m-b-20"><strong>Welcome To <br> Agroplace</strong></h1>
+                                    <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see any changes in performance over time.</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </li>
+                    <li class="text-center">
+                        <img src={% static 'images/banner-03.jpg'%} alt="">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h1 class="m-b-20"><strong>Welcome To <br> Agroplace</strong></h1>
+                                    <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see any changes in performance over time.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="slides-navigation">
+                    <a href="#" class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                    <a href="#" class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
                 </div>
             </div>
 
             <section class="pt-5 pb-4">
                 <!-- Heading-->
-
-
                 <div class="row">
-
                 </div>
-
-
-
             </section>
+
   <!-- How it works-->
             <section class="pt-4 mb-4 mb-md-5">
                 <h2 class="h3 text-center mb-grid-gutter pt-2">How it works?</h2>
@@ -86,72 +109,46 @@
                                 class="ci-arrow-right ms-1 me-n1"></i></a></div>
                 </div>
 
-
-
                 <div class="row">
                     {% for product in products %}
 
-                    <div class="col-md-2">
-
-                        <div class="card product-card card-static mb-5 rounded shadow">
-
-                            <a class="card-img-top d-block overflow-hidden" href="{%url 'product-detail' product.id%}">
-                                <img src="{{product.image.url}}" alt="Product">
-                            </a>
-
-                            <div class="card-body py-3 rounded">
-                                <a class="product-meta d-block fs-xs pb-1" href="#">{{product.category}}</a>
-
-                                <h3 class="product-title fs-sm text-truncate ">
-                                    <a href="{%url 'product-detail' product.id%}">{{product.product_name}}</a>
-                                </h3>
-
-                                <div class="product-price">
-                                    <span class="text-accent">$ {{product.price}}</span>
+                        <div class="col-lg-3 col-md-6 special-grid" >
+                            <div class="products-single fix">
+                                    <img src="{{product.image.url}}" class="img-fluid" alt="Image" style="min-height: 250px; max-height: 250px;">
+                                <div class="why-text">
+                                    <h4>{{product.product_name}}</h4>
+                                    <h5> $ {{product.price}}</h5>
+                                    <a href="{% url 'add-cart' product.id %}" class="cart">+<i
+                                            class="ci-cart fs-base ms-1"></i></a>
                                 </div>
-
                             </div>
-
-                            <div class="product-floating-btn">
-                                <a href="{% url 'add-cart' product.id %}" class="btn btn-primary btn-shadow btn-sm">+<i
-                                    class="ci-cart fs-base ms-1"></i></a>
-                            </div>
-
                         </div>
-
-
-
-
-                        {% comment %} <span>
-
-                            <i class="fa fa-star{%if product.avarageReview < 0.5%}-o{%elif product.avarageReview >= 0.5 and product.avarageReview < 1 %}-half-o{%endif%}"
-                                aria-hidden="true"></i>
-                            <i class="fa fa-star{%if product.avarageReview < 1.5%}-o{%elif product.avarageReview >= 1.5 and product.avarageReview < 2 %}-half-o{%endif%}"
-                                aria-hidden="true"></i>
-                            <i class="fa fa-star{%if product.avarageReview < 2.5%}-o{%elif product.avarageReview >= 2.5 and product.avarageReview < 3 %}-half-o{%endif%}"
-                                aria-hidden="true"></i>
-                            <i class="fa fa-star{%if product.avarageReview < 3.5%}-o{%elif product.avarageReview >= 3.5 and product.avarageReview < 4 %}-half-o{%endif%}"
-                                aria-hidden="true"></i>
-                            <i class="fa fa-star{%if product.avarageReview < 4.5%}-o{%elif product.avarageReview >= 4.5 and product.avarageReview < 5 %}-half-o{%endif%}"
-                                aria-hidden="true"></i>
-
-                        </span> {% endcomment %}
-
-                    </div>
                     {% endfor %}
-
-
                 </div>
-
-
-
             </section>
 
             <div class="pb-3"></div>
             <div class="pb-3"></div>
         </div>
 
+        <!-- ALL JS FILES -->
+        <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+        <script src="{% static 'js/popper.min.js'%}"></script>
+        <script src="{%static 'js/bootstrap.min.js'%}"></script>
+        <!-- ALL PLUGINS -->
+        <script src="{%static 'js/jquery.superslides.min.js'%}"></script>
+        <script src="{%static 'js/bootstrap-select.js'%}"></script>
+        <script src="{%static 'js/inewsticker.js'%}"></script>
+        <script src="{%static 'js/bootsnav.js'%}"></script>
+        <script src="{%static 'js/images-loded.min.js'%}"></script>
+        <script src="{%static 'js/isotope.min.js'%}"></script>
+        <script src="{%static 'js/owl.carousel.min.js'%}"></script>
+        <script src="{%static 'js/baguetteBox.min.js'%}"></script>
+        <script src="{%static 'js/form-validator.min.js'%}"></script>
+        <script src="{%static 'js/contact-form-script.js'%}"></script>
+        <script src="{%static 'js/custom.js'%}"></script>
     </section>
+
 </main>
 
 
