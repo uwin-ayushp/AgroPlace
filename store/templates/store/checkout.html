@@ -124,7 +124,7 @@
 
                             <button id="purchase-btn" class="btn btn-primary btn-block">Place Order</button>
                             </form>
-                            <a href="{%url 'store'%}" class="btn btn-light btn-block">Continue Shopping</a>
+                            <a href="{%url 'store:home'%}" class="btn btn-light btn-block">Continue Shopping</a>
 
                         </div> 
                     </div> 
@@ -139,6 +139,7 @@
     </section>
 </main>
     {% block script %}
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script>var generated_csrf_token = '{{ csrf_token }}';</script>
   <script src="https://checkout.stripe.com/checkout.js"></script>
        <script>

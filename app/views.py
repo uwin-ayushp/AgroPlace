@@ -1,13 +1,15 @@
 from django.shortcuts import render
 from store.models import Product, ReviewRating, ProductGalary
 from django.views.generic import DetailView
-from orders.models import OrderProduct
+from orders.models import OrderProduct,Account
 from django.http import JsonResponse
 from django.core.cache import cache
 
 
 def home(request):
     products = Product.objects.all().filter(is_available=True)
+
+    # print(user)
     context = {
         'products': products,
     }
