@@ -74,7 +74,7 @@
 						<div class="h2 fw-normal text-accent pt-3">$ {{object.price}}</div>
 
 
-
+                     {% if request.user.user_role == 'buyer' %}
 						<div class="d-flex flex-wrap align-items-center pt-4 pb-2 mb-3">
 							<select class="form-select me-3 mb-3" style="width: 5rem;">
 								<option value="1">1</option>
@@ -85,12 +85,15 @@
 							</select>
 
 							<form action="{%url 'add-cart' product.id%}" method="GET">
-								<button class="btn btn-primary btn-shadow me-3 mb-3" type="submit"><i
+
+								    <button class="btn btn-primary btn-shadow me-3 mb-3" type="submit"><i
 										class="ci-cart fs-lg me-2"></i>Add to Cart</button>
-							</form>
+
+                            </form>
+                         </div>
+                        {% endif %}
 
 
-						</div>
 						<h6>Product description</h6>
 
 						{{object.description}}
@@ -126,11 +129,12 @@
 								</div>
 
 							</div>
-
-							<div class="product-floating-btn">
+                            {% if request.user.user_role == 'buyer' %}
+							    <div class="product-floating-btn">
 								<a href="{% url 'add-cart' product.id %}" class="btn btn-primary btn-shadow btn-sm">+<i
 										class="ci-cart fs-base ms-1"></i></a>
-							</div>
+							    </div>
+                            {% endif %}
 						</div>
 					</div>
 					{% endfor %}
@@ -139,7 +143,7 @@
 			</section>
 		</div>
 
-
+{% if request.user.user_role != 'farmer' %}
 		<div class="row py-4">
 			<div class="col-md-7">
 
@@ -182,7 +186,7 @@
 				<div class="bg-secondary py-grid-gutter px-grid-gutter rounded-3">
 					<h3 class="h4 pb-2">Write a review</h3>
 
-					<form action="{%url 'submit_reviews' object.id%}" method="POST">
+					<form action="{%url 'store:submit_reviews' object.id%}" method="POST">
 						{% csrf_token %}
 						<div>
 							
@@ -235,7 +239,7 @@
 				</div>
 			</div>
 		</div>
-
+{% endif %}
 
 	</section>
 </main>

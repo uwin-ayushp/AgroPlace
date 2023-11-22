@@ -118,10 +118,13 @@
                                 <div class="why-text">
                                     <h4>{{product.product_name}}</h4>
                                     <h5> $ {{product.price}}</h5>
+                                     {% if request.user.user_role != 'farmer' and request.user.user_role != 'specialist' %}
                                     <a href="{% url 'add-cart' product.id %}" class="cart">+<i
                                             class="ci-cart fs-base ms-1"></i></a>
+                                    {% endif %}
                                 </div>
                             </div>
+
                         </div>
                     {% endfor %}
                 </div>

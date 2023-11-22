@@ -22,8 +22,17 @@
                                 <div class="card" style="text-align: center;">
                                     <div class="cart-body">
                                         <h5 class="cart-title">Total Orders</h5>
+                                        {% if request.user.user_role != 'specialist' %}
                                         <h4>{{orders_count}}</h4>
+                                            {% else %}
+                                             <h4>0</h4>
+                                        {% endif %}
+                                        {% if request.user.user_role == 'farmer' %}
                                         <a href="{%url 'farmer:farmerOrder' user.id%}">View Orders</a>
+                                        {% endif %}
+                                        {% if request.user.user_role == 'buyer'  %}
+                                            <a href="{%url 'my_orders'%}">View Orders</a>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -40,6 +49,78 @@
                                 </div>
                             </div>
                         </div>
+                     {% if request.user.user_role != 'buyer'  %}
+                        <br/><br/>
+                        <div class="row">
+                         {% if request.user.user_role == 'farmer'  %}
+                            <h5>Connect With Experts</h5>
+                               <div class="col-md-12">
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
+                                  {% if request.user.user_role == 'farmer'  %}
+                                <th scope="col">Department</th>
+                                {% endif %}
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for ul in ulist  %}
+
+
+                              <tr>
+                                 <th scope="row"><a href="{%url 'chatbox' ul.id%}">{{ul.first_name }}&nbsp; {{ul.last_name}}</th></a>
+
+                                <td>{{ul.email}}</td>
+                                <td>{{ul.phone_number}}</td>
+
+                                 {% if request.user.user_role == 'farmer'  %}
+                                     <td>{{ ul.sp_department }}</td>
+                                    {% endif %}
+                              </tr>
+                              {% endfor %}
+
+
+                            </tbody>
+                          </table>
+
+                    </div>
+                          {% else %}
+                              <h5>Connected Farmers</h5>
+                               <div class="col-md-12">
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
+
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for ul in ulist  %}
+
+
+                              <tr>
+                                 <th scope="row"><a href="{%url 'chatbox' ul.id%}">{{ul.first_name }}&nbsp; {{ul.last_name}}</th></a>
+
+                                <td>{{ul.email}}</td>
+                                <td>{{ul.phone_number}}</td>
+
+
+                              </tr>
+                              {% endfor %}
+
+
+                            </tbody>
+                          </table>
+
+                    </div>
+                             {% endif %}
+                        </div>
+                    {% endif %}
                     </div>
         <!-- table-responsive .end// -->
         </article> <!-- order-group.// -->
