@@ -1897,3 +1897,37 @@ a[class*=card]:hover .title {
  .footer-link-contact ul li p a:hover{
      color: #b0b435;
 }
+
+ .list-group-item.active{
+   z-index: 2;
+   color: #fff;
+   box-shadow: 0 0.5rem 1.125rem -0.5rem #b0b435;
+   background-color: #b0b435;
+   border-color: #b0b435;
+ }
+
+ .btn-primary {
+   background-color: #b0b435;
+   border-color: #b0b435;
+   border-radius: 0.25rem;
+ }
+
+ .btn-primary:hover {
+   background-color: #b0b435;
+   border-color: #b0b435;
+   -webkit-filter: brightness(1.1);
+          filter: brightness(1.1);
+ }
+
+ .btn-primary.btn-shadow {
+    box-shadow: 0 0.5rem 1.125rem -0.5rem #b0b435;
+}
+
+ .form-check-input {
+   margin-left: 0rem;
+ }
+
+ .form-check-input:checked {
+   background-color: #b0b435;
+   border-color: #b0b435;
+}
