@@ -114,11 +114,17 @@
 
                         <div class="col-lg-3 col-md-6 special-grid" >
                             <div class="products-single fix">
-                                    <img src="{{product.image.url}}" class="img-fluid" alt="Image" style="min-height: 250px; max-height: 250px;">
+                                    <a class="card-img-top d-block overflow-hidden" href="{%url 'product-detail' product.id%}">
+                                        <img src="{{product.image.url}}" class="img-fluid" alt="Image" style="min-height: 250px; max-height: 250px;">
+                                    </a>
                                 <div class="why-text">
-                                    <h4>{{product.product_name}}</h4>
+                                    <a class="product-meta d-block fs-xs pb-1" href="#">{{product.category}}</a>
+                                    <h4 class="product-title fs-sm text-truncate ">
+                                        <a href="{%url 'product-detail' product.id%}">{{product.product_name}}</a>
+                                    </h4>
                                     <h5> $ {{product.price}}</h5>
-                                     {% if request.user.user_role != 'farmer' and request.user.user_role != 'specialist' %}
+
+                                    {% if request.user.user_role != 'farmer' and request.user.user_role != 'specialist' %}
                                     <a href="{% url 'add-cart' product.id %}" class="cart">+<i
                                             class="ci-cart fs-base ms-1"></i></a>
                                     {% endif %}

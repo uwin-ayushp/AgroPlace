@@ -43,7 +43,9 @@
 <body class="bg-secondary">
 
 	{% include "header.html" %}
-	{% block content %}{% endblock content %}
+	<div style="padding-bottom: 4rem; background-color: whitesmoke;">
+        {% block content %}{% endblock content %}
+    </div>
 	{% include "footer.html" %}
 
     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
