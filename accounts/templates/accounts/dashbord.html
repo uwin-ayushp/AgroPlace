@@ -21,12 +21,16 @@
                             <div class="col-md-6">
                                 <div class="card" style="text-align: center;">
                                     <div class="cart-body">
-                                        <h5 class="cart-title">Total Orders</h5>
                                         {% if request.user.user_role != 'specialist' %}
-                                        <h4>{{orders_count}}</h4>
-                                            {% else %}
-                                             <h4>0</h4>
+                                         <h5 class="cart-title">Total Orders</h5>
+                                         {% else %}
+                                             <h5 class="cart-title">Total Connected Farmer</h5>
                                         {% endif %}
+{#                                        {% if request.user.user_role != 'specialist' %}#}
+                                        <h4>{{orders_count}}</h4>
+{#                                            {% else %}#}
+{#                                             <h4>0</h4>#}
+{#                                        {% endif %}#}
                                         {% if request.user.user_role == 'farmer' %}
                                         <a href="{%url 'farmer:farmerOrder' user.id%}">View Orders</a>
                                         {% endif %}

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
+import farmer.models
 from orders.models import Order, OrderProduct
 from .forms import RegistrationForm, UserForm, UserProfileForm
 from app.models import Account, UserProfile
@@ -10,7 +11,7 @@ import requests
 from django.http import HttpResponse
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Q
 # Create your views here.
 """verification email"""
 from django.contrib.sites.shortcuts import get_current_site
@@ -19,7 +20,8 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
-
+from accounts.models import Chatbox
+from django.utils import timezone
 
 def register(request):
     if request.method == "POST":
@@ -117,7 +119,13 @@ def dashbord(request):
         orders = Order.objects.order_by('created_at').filter(user_id=request.user.id, is_ordered=True)
         orders_count = orders.count()
     else:
-        ulist = Account.objects.filter(user_role='farmer')
+
+        distinct_farmer_ids = Chatbox.objects.order_by('-created_date').filter(sp_id=user.id).values_list('farmer_id',
+                                                                                        flat=True).distinct()
+
+        # Filter Account objects based on the distinct farmer IDs
+        ulist = Account.objects.filter(id__in=distinct_farmer_ids)
+        orders_count = ulist.count()
 
 
     context = {
@@ -226,9 +234,70 @@ def edit_profile(request):
     return render(request, 'accounts/edit_profile.html', context)
 
 def chatbox(request,id):
-    context=''
-    return render(request, 'accounts/chatbox.html')
 
+    user = Account.objects.get(email=request.user.email)
+    if user.user_role=='farmer':
+        farmerid = user.id
+        spId = id
+
+    elif user.user_role=='specialist':
+        spId= user.id
+        farmerid = id
+
+    chat_history = Chatbox.objects.filter(
+        (Q(sp_id=spId, farmer_id=farmerid) | Q(sp_id=farmerid, farmer_id=spId))
+    ).distinct().order_by('created_date')
+
+    context = {
+        'id': id,
+        'uid':user.id,
+        'chat_history': chat_history,
+    }
+    return render(request, 'accounts/chatbox.html',context)
+
+# def sendMsg(request):
+#     if request.method == 'POST':
+#         Recieverid = request.POST.get('id')
+#         print(Recieverid)
+#
+#         senderId = request.user.id
+#         message_text = request.POST.get('msg')
+#
+#         # Save the message to the Chatbox model
+#         cbox= Chatbox()
+#
+#         cbox.sp_id= Recieverid
+#         cbox.farmer_id=senderId
+#         cbox.text=message_text
+#         cbox.senderid = senderId
+#         cbox.recid = Recieverid
+#         cbox.created_date=timezone.now()
+#         cbox.save()
+#         return redirect('chatbox', id=Recieverid)
+#     else:
+#         # Handle other cases if necessary
+#         pass
+
+def sendMsg(request):
+    if request.method == 'POST':
+        receiver_id = int(request.POST.get('id'))
+        sender_id = request.user.id
+        message_text = request.POST.get('msg')
+
+        chatbox_instance = Chatbox(
+                sp_id=receiver_id,
+                farmer_id=sender_id,
+                senderid=sender_id,
+                recid=receiver_id,
+                text=message_text,
+                created_date=timezone.now()
+        )
+        chatbox_instance.save()
+
+        return redirect('chatbox', id=receiver_id)
+    else:
+        # Handle other cases if necessary
+        pass
 @login_required(login_url='login')
 def order_detail(request, order_id):
     order_detail = OrderProduct.objects.filter(order__order_number=order_id)
