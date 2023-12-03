@@ -12,4 +12,5 @@ urlpatterns = [
     path('authorize/', StripeAuthorizeView.as_view(), name='authorize'),
     path('esewarequest/',views.EsewaRequestView.as_view(),name='esewarequest'),
     path('esewa-verify/',views.EsewaVerifyView.as_view(),name='esewaverify'),
+
 ]

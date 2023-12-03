@@ -39,10 +39,11 @@
                                 <td>{{order.full_name}}</td>
                                 <td>{{order.phone_number}}</td>
                                 <td>$ {{order.order_total}}</td>
-                                    <td>{% if order.status == 'New' %}
+                                    <td style="{% if order.status == 'New' %}background-color: yellow;{% endif %}">
+                                        {% if order.status == 'New' %}
                                       Order Placed</td>
                                   {% else %}
-                                      order.status
+                                      {{ order.status }}
                                   {% endif %}
                                 <td>{{order.created_at}}</td>
                               </tr>

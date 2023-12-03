@@ -1,7 +1,7 @@
 import joblib as joblib
 import pandas as pd
 # from surprise import Dataset, Reader, KNNBasic
-
+from django.urls import reverse
 from django.shortcuts import render, redirect,get_object_or_404
 # from .forms import RegistrationForm, UserForm, UserProfileForm
 from app.models import Account, UserProfile
@@ -101,14 +101,29 @@ def delete_product(request, product_id):
 
 @login_required(login_url='login')
 def farmerOrder(request, user_id):
-    orders = Order.objects.filter(farmer_id=user_id).order_by('created_at')
-    status = [c[1] for c in Order.status.field.choices]
+    orders = Order.objects.filter(farmer_id=user_id).order_by('-status', 'created_at')
+
+    status = orders.first().status
     context = {
         'orders': orders,
         'order_status':status
     }
     return render(request, 'order.html',context)
 
+@login_required(login_url='login')
+def change_status(request, order_id):
+    if request.method == 'POST':
+        userid = request.user.id
+        new_status = request.POST.get('status')  # Use the correct field name
+        order =Order.objects.get(id=order_id)
+        order.status = new_status
+        order.save()
+
+        # You can redirect to the order list or any other page
+        return redirect('farmer:farmerOrder', user_id=userid)
+
+
+    return HttpResponse("Bad Request", status=400)
 
 # # Load the pre-trained model and data
 # model = joblib.load('farmer/model/product_trending_model.pkl')
