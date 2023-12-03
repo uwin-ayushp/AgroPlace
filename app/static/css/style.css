@@ -1931,3 +1931,8 @@ a[class*=card]:hover .title {
    background-color: #b0b435;
    border-color: #b0b435;
 }
+
+ #sortOptions, #catOptions{
+   width: 10rem;
+   margin-right: 1.7rem;
+ }

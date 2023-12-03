@@ -14,26 +14,33 @@
             {% else %}
             <h2 class="title-page">Our Store</h2>
             {% endif %}
+        <div class="row">
+             <div class="col-md-12 mb-3">
+        <span>{{ products_count }} Items found</span>
+    </div>
+        </div>
+          <div class="row">
+    <div class="col-md-6 mb-3 text-md-right">
+        <form method="POST" class="form-inline" action="{% url 'store:home' %}">
+            {% csrf_token %}
+            {{ catform }}
+
+            {{ form }}
+            <button type="submit" class="btn btn-primary ml-2" style="width: 5rem;">Filter</button>
+        </form>
+    </div>
+
+</div>
 
         </div>
 
         <div class="container">
-
-            <header class="border-bottom mb-4 pb-3">
-                <div class="form-inline">
-                    <span class="mr-md-auto">{{products_count}} Items found </span>
-
-                </div>
-            </header>
-
 
             <div class="row">
                 {% for product in products %}
 
                     <div class="col-lg-3 col-md-6 special-grid" >
                         <div class="products-single fix">
-{#                            <button class="btn-wishlist btn-sm" type="button" data-bs-toggle="tooltip"#}
-{#                                data-bs-placement="left" title="Add to wishlist"><i class="ci-heart"></i></button>#}
 
                             <a class="card-img-top d-block overflow-hidden" href="{%url 'product-detail' product.id%}">
                                 <img src="{{product.image.url}}" alt="img-fluid" style="min-height: 250px; max-height: 250px;">
@@ -48,12 +55,13 @@
 
                                 <h5>$ {{product.price}}</h5>
 
+                                {% if request.user.user_role != 'farmer' and request.user.user_role != 'specialist' %}
+                                   <a href="{% url 'add-cart' product.id %}" class="cart">+<i
+                                                    class="ci-cart fs-base ms-1"></i></a>
+                                {% endif %}
+
                             </div>
 
-                        <div class="product-floating-btn">
-                            <a href="{% url 'add-cart' product.id %}" class="btn btn-primary btn-shadow btn-sm">+<i
-                                class="ci-cart fs-base ms-1"></i></a>
-                        </div>
                         </div>
                     </div>
 
