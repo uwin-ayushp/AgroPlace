@@ -19,7 +19,7 @@
             <div class="card-body">
                 <div class="row"> 
                      <div class="col-md-12">
-                        <table class="table table-hover">
+                        <table id="example" class="display table table-hover" style="width:100%">
                             <thead>
                               <tr>
                                 <th scope="col">Order #</th>
@@ -67,5 +67,10 @@
     
     
 <main/>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+    new DataTable('#example');
 
+</script>
     {% endblock content %}
