@@ -3,12 +3,7 @@ from app.models import Account
 from store.models import Product
 
 class Order(models.Model):
-    STATUS ={
-        ('New', 'New'),
-        ('Accepted', 'Accepted'),
-        ('Completed', 'Completed'),
-        ('Cancelled', 'Cancelled'),
-    }        
+
 
     user = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True)
     order_number = models.CharField(max_length=100, default="", null=True)
@@ -23,12 +18,13 @@ class Order(models.Model):
     city = models.CharField(max_length=50)
     order_note = models.CharField(max_length=100,blank=True)
     order_total = models.CharField(max_length=30, default="", null=True)
-    status = models.CharField(max_length=10, choices=STATUS, default="New")
+    status = models.CharField(max_length=10, default="New")
     ip = models.CharField(blank=True ,max_length=10,  default="", null=True)
     is_ordered = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     farmer_id = models.IntegerField()
+
 
     def full_name(self):
         return f'{self.first_name} {self.last_name}'

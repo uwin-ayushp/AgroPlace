@@ -201,7 +201,7 @@ def resetPassword(request):
 
 
 def my_orders(request):
-    orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('created_at')
+    orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('-status','created_at')
     context = {
         'orders': orders
     }
