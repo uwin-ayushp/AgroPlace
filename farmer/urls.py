@@ -11,7 +11,7 @@ urlpatterns = [
     path('orders/<int:user_id>/', views.farmerOrder, name='farmerOrder'),
     path('change-status/<int:order_id>/', views.change_status, name='change_status'),
 
-    # path('insights/', views.insights, name='insights'),
+    path('insights/', views.insights, name='insights'),
     path('expert_advice/',views.expert_advice,name='expert_advice'),
     path('inbox/',views.expert_advice,name='Inbox')
 ]

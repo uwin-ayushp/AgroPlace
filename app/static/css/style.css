@@ -1936,3 +1936,8 @@ a[class*=card]:hover .title {
    width: 10rem;
    margin-right: 1.7rem;
  }
+
+ #main-content
+ {
+   padding-bottom: 21.5rem;
+ }

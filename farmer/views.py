@@ -1,6 +1,6 @@
 import joblib as joblib
 import pandas as pd
-# from surprise import Dataset, Reader, KNNBasic
+from surprise import Dataset, Reader, KNNBasic
 from django.urls import reverse
 from django.shortcuts import render, redirect,get_object_or_404
 # from .forms import RegistrationForm, UserForm, UserProfileForm
@@ -125,23 +125,23 @@ def change_status(request, order_id):
 
     return HttpResponse("Bad Request", status=400)
 
-# # Load the pre-trained model and data
-# model = joblib.load('farmer/model/product_trending_model.pkl')
-# model2 = joblib.load('farmer/model/recommendation_model.pkl')
-# df = pd.read_csv('farmer/model/AgroPlace_Dataset_6.csv')
-# reader = Reader(rating_scale=(0, 10))
-# data = Dataset.load_from_df(df[['Customer ID', 'Product line', 'Rating']], reader)
-# trainset = data.build_full_trainset()
-# input = [
-#     [74.69, 7, 26.1415, 548.9715, 522.83, 4.761904762, 26.1415, 9.1],
-#     [55.59, 5, 12.2475, 257.2475, 245, 4.761904762, 12.2475, 8.8],
-# ]
-#
-# def insights(request):
-#     trending_products_list = [('Potatoes', 63), ('Wheat', 45), ('Broccoli', 39), ('Carrots', 35), ('Onions', 33)]
-#
-#     context = {
-#         'trending_products_list': trending_products_list,
-#     }
-#
-#     return render(request, 'insights.html', context)
+# Load the pre-trained model and data
+model = joblib.load('farmer/model/product_trending_model.pkl')
+model2 = joblib.load('farmer/model/recommendation_model.pkl')
+df = pd.read_csv('farmer/model/AgroPlace_Dataset_6.csv')
+reader = Reader(rating_scale=(0, 10))
+data = Dataset.load_from_df(df[['Customer ID', 'Product line', 'Rating']], reader)
+trainset = data.build_full_trainset()
+input = [
+    [74.69, 7, 26.1415, 548.9715, 522.83, 4.761904762, 26.1415, 9.1],
+    [55.59, 5, 12.2475, 257.2475, 245, 4.761904762, 12.2475, 8.8],
+]
+
+def insights(request):
+    trending_products_list = [('Potatoes', 63), ('Wheat', 45), ('Broccoli', 39), ('Carrots', 35), ('Onions', 33)]
+
+    context = {
+        'trending_products_list': trending_products_list,
+    }
+
+    return render(request, 'insights.html', context)

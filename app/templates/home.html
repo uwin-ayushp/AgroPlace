@@ -135,6 +135,41 @@
                     {% endfor %}
                 </div>
             </section>
+        {% if request.user.user_role == 'buyer' %}
+                    <section class="pt-5 pb-4">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center pt-1 border-bottom pb-4 mb-4">
+                            <h2 class="h3 mb-0 pt-3 me-3">Recommended Products</h2>
+                        </div>
+                        <div class="row">
+                            {% for product in recommended_products %}
+                                <div class="col-lg-3 col-md-6 special-grid">
+
+                                    <div class="products-single fix">
+                                        <a class="card-img-top d-block overflow-hidden"
+                                           href="{% url 'product-detail' product.id %}">
+                                            <img src="{{ product.image.url }}" class="img-fluid" alt="Image"
+                                                 style="min-height: 250px; max-height: 250px;">
+                                        </a>
+                                        <div class="why-text">
+                                            <a class="product-meta d-block fs-xs pb-1"
+                                               href="#">{{ product.category }}</a>
+                                            <h4 class="product-title fs-sm text-truncate ">
+                                                <a href="{% url 'product-detail' product.id %}">{{ product.product_name }}</a>
+                                            </h4>
+                                            <h5> $ {{ product.price }}</h5>
+
+                                            {% if request.user.user_role != 'farmer' and request.user.user_role != 'specialist' %}
+                                                <a href="{% url 'add-cart' product.id %}" class="cart">+<i
+                                                        class="ci-cart fs-base ms-1"></i></a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </section>
+                {% endif %}
 
             <div class="pb-3"></div>
             <div class="pb-3"></div>
