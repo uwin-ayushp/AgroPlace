@@ -95,3 +95,9 @@ class UserProfile(models.Model):
         return f'{self.address_line_1} {self.address_line_2}'
 
 
+class Recommendation(models.Model):
+    recommendation_order = models.IntegerField()
+    score = models.FloatField()
+
+    def __str__(self):
+        return f"Recommendation {self.id}"

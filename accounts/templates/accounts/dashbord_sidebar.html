@@ -13,7 +13,7 @@
 
         {% if request.user.user_role == 'farmer' %}
             <a class="list-group-item" href="{%url 'farmer:add_products'%}">Add Products</a>
-
+            <a class="list-group-item" href="{%url 'farmer:insights'%}">Market Insights</a>
         {% endif %}
 
         <a class="list-group-item" href="{%url 'edit_profile'%}">Edit Profile</a>
